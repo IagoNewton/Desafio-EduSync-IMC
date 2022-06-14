@@ -25,8 +25,6 @@ namespace Desafio_EduSync_IMC
             Console.Write("Informe seu peso: ");
             double.TryParse(Console.ReadLine(), out peso);
 
-           
-
         }
     }
 }
