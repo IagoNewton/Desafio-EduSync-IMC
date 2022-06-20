@@ -9,10 +9,15 @@ namespace Desafio_EduSync_IMC
     {
         static void Main(string[] args)
         {
+            
             double peso, altura, imc;
             string nome, sexo;
             int idade;
 
+            /// <summary>
+            /// Verifica se o nome foi digitado corretamente.
+            /// </summary>
+            
             Console.Write("Informe seu nome: ");
             nome = Console.ReadLine();
             {
@@ -24,13 +29,17 @@ namespace Desafio_EduSync_IMC
                 
             }
 
-            Console.Write("Informe seu sexo[M] para masculino ou [F] para feminino: ");
+            /// <summary>
+            /// Faz com que o usuario escolha entre o sexo feminino ou masculino.
+            /// </summary>
+            
+            Console.Write("Informe seu sexo [M] para masculino ou [F] para feminino: ");
             sexo = Console.ReadLine();
 
-            while(sexo.ToLower() != "m" || sexo.ToLower() != "f" )
+            while (sexo.ToLower() != "m" || sexo.ToLower() != "f")//Programa reconhece maiusculo ou minusculo graças a comando[ToLower].
             {
 
-                if(sexo.ToLower() == "m")
+                if (sexo.ToLower() == "m")//Identifica o sexo e guarda ele.
                 {
                     sexo = "Masculino";
                     break;
@@ -41,52 +50,87 @@ namespace Desafio_EduSync_IMC
                     break;
                 }
                 Console.WriteLine("\nPor favor digite [M] para masculino ou [F] para feminino");
-                sexo = Console.ReadLine();
+                sexo = Console.ReadLine();//Repetiçao caso o usurio informe qualquer letra que nao seja F ou M.
             }
 
+            /// <summary>
+            ///  Verifica a idade informada
+            /// </summary>
+            /// <returns>num</returns>
+            do
+            {
+                Console.Write("Informe sua idade: ");
+                if (int.TryParse(Console.ReadLine(), out idade))
+                {
+                    if (idade <= 0)
+                    {
+                        Console.WriteLine("\nIdade invalida. ");//Nao aceita Idade negativa.
+                    }
+                    if (idade > 150)
+                    {
+                        Console.WriteLine("\nIdade invalida. ");//Nao aceita Idade acima de 150 anos.
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\nDigite sua idade corretamente. ");
+                }//Pede para o usuario corrigir sua idade caso passe os limites estabelecidos.
+            } while (idade <= 0 || idade > 150);//Laço de repetiçao.
+            
+            
 
-            Console.Write("Informe sua idade: ");
-            int.TryParse(Console.ReadLine(), out idade);
-
+            /// <summary>
+            /// Verifica a altura informada
+            /// </summary>
+            
             do
             {
                 Console.Write("\nInforme sua altura: ");
                 if (double.TryParse(Console.ReadLine().Replace(",", "."), NumberStyles.Number, CultureInfo.InvariantCulture, out altura))
-                {
+                {//Guarda a entrada em double e certifica que o usuario possa usar virgula ou ponto.
                     if (altura <= 0)
                     {
-                        Console.WriteLine("\nAltura invalida. ");
+                        Console.WriteLine("\nAltura invalida. ");//Nao aceita altura negativa.
                     }
                     if (altura > 2.60)
                     {
-                        Console.WriteLine("\nAltura invalida. ");
+                        Console.WriteLine("\nAltura invalida. ");//Nao aceita altura acima de 2.60
                     }
                 }
                 else
                 {
                     Console.WriteLine("\nDigite sua altura corretamente. ");
-                }
-            } while (altura <= 0 || altura > 2.60);
-
+                }//Pede para o usuario corrigir sua altura caso passe os limites estabelecidos.
+            } while (altura <= 0 || altura > 2.60);//Laço de repetiçao.
+            
+            /// <summary>
+            /// Verifica o peso informado.
+            /// </summary>
+           
             do
             {
                 Console.Write("\nInforme seu peso: ");
                 if (double.TryParse(Console.ReadLine().Replace(",", "."), NumberStyles.Number, CultureInfo.InvariantCulture, out peso))
-                {
+                {//Guarda a entrada em double e certifica que o usuario possa usar virgula ou ponto.
                     if (peso <= 0)
                     {
-                        Console.WriteLine("\nPeso invalido. ");
+                        Console.WriteLine("\nPeso invalido. ");//Nao aceita peso negativo.
                     }
                     if (peso > 600)
                     {
-                        Console.WriteLine("\nPeso invalido. ");
+                        Console.WriteLine("\nPeso invalido. ");//Nao aceita peso acima de 600kg.
                     }
                 }
                 else
                 {
                     Console.WriteLine("\nDigite seu peso corretamente. ");
-                }
-            } while (peso <= 0 || peso > 600);
+                }//Pede para o usuario corrigir seu peso caso passe os limites estabelecidos.
+            } while (peso <= 0 || peso > 600);//Laço de repetiçao
+
+            /// <summary>
+            /// Switch para definir a categoria do IMC
+            /// </summary>
+            /// <param name="idade"></param>
 
             string categoria = "categoria";
             {
@@ -102,23 +146,27 @@ namespace Desafio_EduSync_IMC
                         categoria = "Adulto";
                         break;
                     case >= 66:
-                        categoria = "Idoso";
+                        categoria = "Idoso";// Verifica a Idade e guarda na variavel [categoria]
                         break;
                 }
             }
 
-            
-            Console.WriteLine("IMC Desejável: entre 18,5 e 24,9");
-            imc = Math.Round((peso / (altura * altura)));
-            
+            /// <summary>
+            /// Calculo do IMC
+            /// </summary>
            
+            imc = Math.Round((peso / (altura * altura)));
+
+            /// <summary>
+            /// Switch para definir ricos.
+            /// </summary>
 
             string riscos = "riscos";
             {
                 switch (imc)
                 {
-                    case < 19:
-                         riscos = "Muitas complicações de saúde como doenças pulmonares e cardiovasculares podem estar associadas ao baixo peso.";
+                    case < 19:// Exibir uma das mensagens dependendo do resultado do IMC..
+                        riscos = "Muitas complicações de saúde como doenças pulmonares e cardiovasculares podem estar associadas ao baixo peso.";
                         break;
                     case >= 19 and <= 24:
                         riscos = "Seu peso está ideal para suas referências.";
@@ -134,13 +182,16 @@ namespace Desafio_EduSync_IMC
                         break;
                 }
             }
-              
+            /// <summary>
+            /// Switch para definir Recomendaçao.
+            /// </summary>
+
             string recomendaçao = "recomendaçao";
             {
                 switch (imc)
                 {
-                    case < 19:
-                         recomendaçao = "Inclua   carboidratos  simples  em  sua   dieta,  além  de  proteínas indispensáveis para ganho de massa magra. Procure um profissional .";
+                    case < 19:// Exibir uma das mensagens dependendo do resultado do IMC..
+                        recomendaçao = "Inclua   carboidratos  simples  em  sua   dieta,  além  de  proteínas indispensáveis para ganho de massa magra. Procure um profissional .";
                         break;
                     case >= 19 and <= 24:
                         recomendaçao = "Mantenha uma dieta saudável e faça seus exames periódicos. ";
@@ -156,18 +207,18 @@ namespace Desafio_EduSync_IMC
                         break;
                 }
             }
-            Console.Clear();
-            Console.WriteLine("DIAGNÓSTICO PRÉVIO \r\n");
+            Console.Clear();//Comando para limpar o console.
+            Console.WriteLine("DIAGNÓSTICO PRÉVIO \r\n");//Começar a exibir os dados armazenados.
             Console.WriteLine($"Nome: {nome}");
             Console.WriteLine($"Sexo: {sexo}");
             Console.WriteLine($"Idade: {idade}");
             Console.WriteLine($"Altura: {altura}");
             Console.WriteLine($"Peso: {peso}");
-            Console.WriteLine($"Categoria: {categoria} ");
-            Console.WriteLine($"Resultado IMC: {imc} ");
-            Console.WriteLine($"Categoria: {categoria} ");
-            Console.WriteLine($"Riscos : {riscos} ");
-            Console.WriteLine($"Recomendaçao inicial : {recomendaçao} ");
+            Console.WriteLine($"Categoria: {categoria} \r\n\r\n");
+            Console.WriteLine($"IMC Desejável: entre 18,5 e 24,9 \r\n");
+            Console.WriteLine($"Resultado IMC: {imc} \r\n");
+            Console.WriteLine($"Riscos: {riscos} \r\n");
+            Console.WriteLine($"Recomendaçao inicial: {recomendaçao} \r\n");
         }
     }
 }
